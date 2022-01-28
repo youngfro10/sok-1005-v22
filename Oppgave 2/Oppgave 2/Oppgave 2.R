@@ -22,3 +22,5 @@
 #lm(<navn på y-variabel> ~ <navn på x-variabel>, data = <navn på datasettet>)
 #Etter å ha “kjørt” koden, hvordan tolker du de to verdiene på den tilpassa linja?
 #Legg den tilpassede linja til ggplot ved å bruke  + geom_smooth(method = lm).
+
+Prøve 123!
