@@ -1,0 +1,120 @@
+---
+title: "Mappeoppgave 1"
+author: "Mohamad Ali Al-Mousawy"
+date: "1/27/2022"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+# Oppgave 1
+
+Laster først inn nødvendige pakker for å laste inn datasettet.
+
+```{r}
+library(readr)
+library(zoo)
+library(tidyverse)
+library(ggplot2)
+library(data.table)
+```
+
+Kopierer txt url for få lest den i fread funksjonen.
+```{r}
+Lower_temp <- fread("https://www.nsstc.uah.edu/data/msu/v6.0/tlt/uahncdc_lt_6.0.txt")
+```
+
+Fjerner informasjon som ikke skal brukes.
+Leser inn urlen med fread funksjonen, og endrer klassen på Globe fra karakterisk til numerisk. Ved å bruk mutate funksjonen kan vi lage en gjennomsnitt.
+Bruker så rollmean funksjonen der k = 13 månder.
+```{r}
+Lower_temp <- subset(Lower_temp, select = -c(Land:AUST)) %>%
+  filter(Year != max(Year), Year != min(Year))
+
+
+Lower_temp$Globe <- as.numeric((Lower_temp$Globe))
+
+Lower_temp <- Lower_temp %>%  
+  mutate(gjennomsnittlig = rollmean(Globe, k = 13, fill = NA , align = 'right'),
+         Year = as.yearmon(paste(Lower_temp$Year, Lower_temp$Mo), "%Y %m"))
+
+```
+
+Plotter så inn informasjonen
+
+```{r}
+Lower_temp %>%
+  ggplot(aes(x=Year, y=Globe,) ) +
+  geom_point() +
+  geom_line()+
+  geom_step(aes(y=gjennomsnittlig, color="gjennomsnitt"))+
+  labs(title="Nyeste global temperatur",
+       x="Years",
+       y="T Depature from '91-20 avg. (deg.c)") +
+  theme_light()
+```
+
+
+# Oppgave 2
+
+Laster inn nødvendige pakker for 
+```{r}
+library(data.table)
+library(dplyr) 
+library(REAT)
+```
+
+
+Laster inn de forskjellige datasettene.
+```{r}
+Lower_temp <- fread("https://www.nsstc.uah.edu/data/msu/v6.0/tlt/uahncdc_lt_6.0.txt")
+Lower_temp <- subset(Lower_temp, select = c(NoPol, Year, Mo)) %>% 
+  filter(Year != max(Year), Year != min(Year)) %>% 
+  mutate(Atmosphere = "Lower_temp")
+
+
+
+Mid_Tropos <- fread("https://www.nsstc.uah.edu/data/msu/v6.0/tmt/uahncdc_mt_6.0.txt")
+Mid_Tropos <- subset(Mid_Tropos, select = c(NoPol, Year, Mo)) %>% 
+  filter(Year != max(Year), Year != min(Year)) %>% 
+  mutate(Atmosphere = "Mid_Tropos")
+
+
+Tropopau <- fread("https://www.nsstc.uah.edu/data/msu/v6.0/ttp/uahncdc_tp_6.0.txt")
+Tropopau <- subset(Tropopau, select = c(NoPol, Year, Mo)) %>% 
+  filter(Year != max(Year), Year != min(Year)) %>% 
+  mutate(Atmosphere = "Tropopau")
+
+Lower_Stratos<- fread("https://www.nsstc.uah.edu/data/msu/v6.0/tls/uahncdc_ls_6.0.txt")
+Lower_Stratos <- subset(Lower_Stratos, select = c(NoPol, Year, Mo)) %>% 
+  filter(Year != max(Year), Year != min(Year)) %>% 
+  mutate(Atmosphere = "Lower_Stratos")
+
+```
+
+
+Slår sammen de forskjellige datasettene for å få en hel datasett.
+```{r}
+df1 = merge(Lower_temp, Mid_Tropos, all = TRUE) 
+df2 = merge(df1, Tropopau, all = TRUE)
+kloden <- rbind(df2, Lower_Stratos, fill=TRUE)   
+```
+
+Endrer NoPol, År og Måned fra karakterisk til numerisk.
+```{r}
+kloden$NoPol <- as.numeric(kloden$NoPol)
+kloden$Year <- as.numeric(kloden$Year)
+kloden$Mo <- as.numeric(kloden$Mo)
+```
+
+Plotter så tilslutt med forskjellige atmosferer for forskjellige farger.
+```{r}
+kloden %>%  
+  ggplot(aes(x = Year, y = NoPol, colour = Atmosphere)) + 
+  geom_point() +
+  geom_line()+
+  labs(title = "Atmosphere",
+       x="År", y = "NoPol ") + 
+  theme_bw()
+```
+
