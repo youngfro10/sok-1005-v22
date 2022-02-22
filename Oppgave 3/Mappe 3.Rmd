@@ -1,0 +1,120 @@
+---
+title: "Oppgave 3"
+author: "Mohamad Ali Al-Mousawy"
+date: "2/22/2022"
+output: pdf_document
+---
+
+```{r}
+library(tidyverse)
+library(rvest)
+library(janitor)
+```
+
+# Oppgave 1
+
+Ved å bruke read_html funksjonen får jeg lastet ned dataen der jeg videre 
+henter ut de forskjellige tabelene.
+```{r}
+urll <- read_html("https://www.motor.no/aktuelt/motors-store-vintertest-av-rekkevidde-pa-elbiler/217132")
+
+ggg <- urll %>% 
+  html_nodes(xpath ="//div") %>% 
+  html_table(trim = TRUE)
+```
+
+
+Jeg ser videre fra dataen jeg har lastet inn at og velger ut listen jeg trenger
+Ved funksjonen dobbel brackets [[]], velger jeg liste nr 35.
+Der jeg ser at dataframe table. 
+Og rydder unna resten av informasjonen jeg har fra nettsiden.
+Sletter også bilene som ikke har informasjon og har verdien X i seg.
+
+
+```{r}
+ggg[[35]]
+
+Table <- ggg[[35]] %>% 
+  slice(1:34) %>% 
+  select(1:4)
+
+Table <- Table %>% row_to_names(row_number = 1)
+
+Table <- Table %>% 
+  slice(1:18, 20:25, 27:33)
+```
+
+Separerer bort km/h fra wltp radene for å få orden på tabellen,
+og verdiene hver for seg.
+
+```{r}
+Table <- Table %>% 
+  separate(`WLTP-tall`, sep = "/", into=c("wltp","kWh"))
+
+Table$STOPP <- gsub("km","", as.character(Table$STOPP))
+
+Table$wltp <- gsub("km","", as.character(Table$wltp))
+```
+
+Rydder unna og gjør om wltp og stopp til numeric for å ha veridene 
+til tabbelen senere i oppgaven.
+
+```{r}
+Table$wltp <- as.numeric(Table$wltp)
+
+Table$STOPP <- as.numeric(Table$STOPP)
+```
+
+```{r}
+ggplot(Table, aes(wltp,STOPP)) +
+  geom_point() +
+  geom_abline(col = "red") +
+  scale_x_continuous(limits=c(200,650)) +
+  scale_y_continuous(limits=c(200,650)) +
+  labs(title = "Faktisk rekkevidde funksjon av reklamert rekkevidde", 
+       x = "Reklamert rekkevidde", y = "Faktisk rekkevidde") +
+  theme_bw()
+```
+
+# Oppgave 2
+
+En linjær funksjon har likningen Y = a + bX, 
+hvor verdien av Y er den avhengige variabelen. 
+Der verdien av y når x = 0.
+
+```{r}
+lm(Table$STOPP~Table$wltp, data = Table)
+```
+
+Modellen sier oss at Faktisk rekkevidde er den avhengige variabelen (y), 
+som blir forklart av en Reklamert rekkevidde. 
+Der 1 enhets endring i variabelen x gir Beta endring i variabelen y. 
+Ved å sette inn en (lm) funksjon som er lineær funksjon, 
+får vi korrelasjonen mellom Faktisk rekkevidde og Reklamert rekkevidde. 
+der den har en stigningstall på 0.8671.
+
+Bruker lm funksjonen for å få den lineære modellen vi blir spurt om.
+Og ser at det er forventet 0.86km i WLTP rekkevidden.
+Som sier oss at for hver rekkevidde som er reklamert er det ca. 87%
+prosent av den kjørelengden og -13% i avvik.
+Ved å plusse sammen den lineære funksjonen og gange en valgt bil får vi da
+den faktiske rekkevidden i -10 grader.
+Feks -26.6450 + 0.8671  * Tesla 3 (614km) = 505.7544 er den faktiske
+rekkevidden i -10 grader. 
+Ved å bruke Geom_smooth funksjonen får vil til å plotte det.
+Jeg valgte å bruke "SE = FALSE", for å ikke vise koffdiens linje eller
+nivåene i plotten, som er på 95%.
+
+```{r}
+ggplot(Table, aes(wltp, STOPP)) +
+  geom_point(aes(color="Faktisk")) +
+  labs(color = "Rekkevidder") +
+  ggtitle("Faktisk rekkevidde som funksjon av Reklamert rekkevidde") +
+  scale_x_continuous(name="Reklamert rekkevidde", limits=c(200,650)) +
+  scale_y_continuous(name="Faktisk rekkevidde", limits=c(200,650)) +
+  geom_abline(aes(intercept=0, slope=1, color="Reklamert"), show.legend = FALSE) +
+  geom_smooth(method = lm, aes(color="lm_smooth"), se = FALSE) +
+  scale_color_manual(values = c("Faktisk"="black", "Reklamert" = "firebrick", "lm_smooth"="turquoise3"),
+                     labels=c("Faktisk", "Reklamert", "lineær")) +
+  theme_bw()
+```
