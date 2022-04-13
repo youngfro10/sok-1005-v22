@@ -1,0 +1,85 @@
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+  
+  <head>
+    
+      <meta charset="utf-8">
+      <title>Bokeh Plot</title>
+      
+      
+        
+          
+        
+        
+          
+        <script type="text/javascript" src="https://cdn.bokeh.org/bokeh/release/bokeh-2.4.2.min.js"></script>
+        <script type="text/javascript">
+            Bokeh.set_log_level("info");
+        </script>
+        
+      
+      
+    
+  </head>
+  
+  
+  <body>
+    
+      
+        
+          
+          
+            
+              <div class="bk-root" id="255152eb-87d4-4fea-b425-ba2f1a0cd375" data-root-id="2856"></div>
+            
+          
+        
+      
+      
+        <script type="application/json" id="3123">
+          {"71915f3c-a957-4b47-8161-a0fdfda1b702":{"defs":[],"roots":{"references":[{"attributes":{"below":[{"id":"2867"}],"center":[{"id":"2870"},{"id":"2874"},{"id":"2894"}],"height":1000,"left":[{"id":"2871"}],"outline_line_alpha":0,"renderers":[{"id":"2883"}],"title":{"id":"2857"},"toolbar":{"id":"2876"},"width":1700,"x_range":{"id":"2859"},"x_scale":{"id":"2863"},"y_range":{"id":"2861"},"y_scale":{"id":"2865"}},"id":"2856","subtype":"Figure","type":"Plot"},{"attributes":{"axis":{"id":"2871"},"coordinates":null,"dimension":1,"grid_line_alpha":0,"group":null,"ticker":null},"id":"2874","type":"Grid"},{"attributes":{"coordinates":null,"data_source":{"id":"2878"},"glyph":{"id":"2880"},"group":null,"hover_glyph":null,"muted_glyph":{"id":"2882"},"nonselection_glyph":{"id":"2881"},"view":{"id":"2884"}},"id":"2883","type":"GlyphRenderer"},{"attributes":{"data":{"ActiveCases":["15,147,900","12,567","554,619","2,464,855","1,975,601","544,285","1,284,016","530,130","470,278","4,359,212","165,583","58,511","30,102","NaN","2,714","9,189","25,724"],"Countries":["USA","India","Brazil","France","UK","Russia","Italy","Spain","Japan","Germany","Canada","Denmark","Sweden","Norway","Nigeria","Greenland","China"],"Land":["USA","India","Brasil","Frankrike","Storbritannia","Russland","Italia","Spania","Japan","Tyskland","Kanada","Danmark","Sverige","Norge","Nigeria","Gr\u00f8nnland","Kina"],"Populasjon":{"__ndarray__":"ps5l7Ep6TkDezVDw5ThfQFTYx9Iic0hAL64x5Zf7OkCrI7D4Hpc7QE1w2Lw1JERADVirS7ziOUC4qmni2sw2QD1TTFt+sUJAagbhILKYPkBuuglFgKI0QEfbAEwTGCBA+bI3IDJNJUDtwiDmqUEfQFtER2ZJcUhAXeRhQQ906T9h86Ofh51fQA==","dtype":"float64","order":"little","shape":[17]},"Population":{"__ndarray__":"AAAAVYzus0EAAEDj5erUQQAAACqFp6lBAAAACNM+j0EAAABwiVWQQQAAANToaKFBAAAASJjBjEEAAACQPU+GQQAAADQk/p1BAAAATGQWlEEAAADY6EWCQQAAAMBRO1ZBAAAAYBx5Y0EAAABApvZUQQAAANCjo6lBAAAAAMDN60AAAACglXLVQQ==","dtype":"float64","order":"little","shape":[17]},"TotalCases":["81,832,612","43,029,044","29,999,816","25,997,852","21,216,874","17,912,157","14,845,815","11,551,574","6,702,086","21,646,375","3,499,226","2,919,428","2,487,852","1,408,708","255,468","11,971","156,143"],"TotalDeaths":{"__ndarray__":"AAAAAIzELkEAAAAAsNIfQQAAAABaJiRBAAAAAFBlAUEAAAAAEDYEQQAAAAAslRZBAAAAAECBA0EAAAAA0Aj5QAAAAACAn9tAAAAAADDg/0AAAAAAQGfiQAAAAAAAgrZAAAAAAMDm0UAAAAAAAKyjQAAAAAAAjKhAAAAAAAAANUAAAAAAAB6yQA==","dtype":"float64","order":"little","shape":[17]},"TotalRecovered":["65,676,514","42,495,089","28,784,928","23,390,491","19,075,703","16,997,877","13,402,015","10,918,903","6,203,522","17,156,600","3,295,953","2,855,155","2,439,419","NaN","249,612","2,761","125,781"],"colors":["#84E127","#458B74","#E14823","#FF6103","darkgreen","#050505","#E04A6C","#2792E1","#E14827","#6495ED","#BDB76B","purple","#5F9EA0","#DEB887","#E14833","#E3CF57","#458B00"]},"selected":{"id":"2893"},"selection_policy":{"id":"2892"}},"id":"2878","type":"ColumnDataSource"},{"attributes":{"coordinates":null,"group":null,"text":"Total D\u00f8dsfall"},"id":"2857","type":"Title"},{"attributes":{},"id":"2865","type":"LogScale"},{"attributes":{"fill_alpha":{"value":0.1},"fill_color":{"field":"colors"},"hatch_alpha":{"value":0.1},"hatch_color":{"field":"colors"},"line_alpha":{"value":0.1},"line_color":{"field":"colors"},"size":{"field":"Populasjon"},"x":{"field":"Populasjon"},"y":{"field":"TotalDeaths"}},"id":"2881","type":"Scatter"},{"attributes":{"border_line_alpha":0,"coordinates":null,"group":null,"items":[{"id":"2895"}],"location":"top_left"},"id":"2894","type":"Legend"},{"attributes":{"axis_label":"Populasjon","coordinates":null,"formatter":{"id":"2890"},"group":null,"major_label_overrides":{"1000":"1k","10000":"10k","100000":"100k","1000000":"1m"},"major_label_policy":{"id":"2891"},"ticker":{"id":"2868"}},"id":"2867","type":"LogAxis"},{"attributes":{"ticker":null},"id":"2887","type":"LogTickFormatter"},{"attributes":{"fill_alpha":{"value":0.8},"fill_color":{"field":"colors"},"hatch_alpha":{"value":0.8},"hatch_color":{"field":"colors"},"line_alpha":{"value":0.8},"line_color":{"field":"colors"},"size":{"field":"Populasjon"},"x":{"field":"Populasjon"},"y":{"field":"TotalDeaths"}},"id":"2880","type":"Scatter"},{"attributes":{},"id":"2888","type":"AllLabels"},{"attributes":{"tools":[{"id":"2875"}]},"id":"2876","type":"Toolbar"},{"attributes":{},"id":"2859","type":"DataRange1d"},{"attributes":{"axis_label":"DeathCases","coordinates":null,"formatter":{"id":"2887"},"group":null,"major_label_policy":{"id":"2888"},"ticker":{"id":"2872"}},"id":"2871","type":"LogAxis"},{"attributes":{},"id":"2892","type":"UnionRenderers"},{"attributes":{"fill_alpha":{"value":0.2},"fill_color":{"field":"colors"},"hatch_alpha":{"value":0.2},"hatch_color":{"field":"colors"},"line_alpha":{"value":0.2},"line_color":{"field":"colors"},"size":{"field":"Populasjon"},"x":{"field":"Populasjon"},"y":{"field":"TotalDeaths"}},"id":"2882","type":"Scatter"},{"attributes":{},"id":"2861","type":"DataRange1d"},{"attributes":{"ticker":null},"id":"2890","type":"LogTickFormatter"},{"attributes":{"axis":{"id":"2867"},"coordinates":null,"grid_line_alpha":0,"group":null,"ticker":null},"id":"2870","type":"Grid"},{"attributes":{"label":{"field":"Land"},"renderers":[{"id":"2883"}]},"id":"2895","type":"LegendItem"},{"attributes":{"num_minor_ticks":10},"id":"2868","type":"LogTicker"},{"attributes":{},"id":"2863","type":"LogScale"},{"attributes":{"num_minor_ticks":10},"id":"2872","type":"LogTicker"},{"attributes":{"callback":null,"tooltips":[["Land","@Land"],["Dodsfall","@TotalDeaths"],["Befolkning","@Populasjon"]]},"id":"2875","type":"HoverTool"},{"attributes":{"source":{"id":"2878"}},"id":"2884","type":"CDSView"},{"attributes":{},"id":"2893","type":"Selection"},{"attributes":{},"id":"2891","type":"AllLabels"}],"root_ids":["2856"]},"title":"Bokeh Application","version":"2.4.2"}}
+        </script>
+        <script type="text/javascript">
+          (function() {
+            const fn = function() {
+              Bokeh.safely(function() {
+                (function(root) {
+                  function embed_document(root) {
+                    
+                  const docs_json = document.getElementById('3123').textContent;
+                  const render_items = [{"docid":"71915f3c-a957-4b47-8161-a0fdfda1b702","root_ids":["2856"],"roots":{"2856":"255152eb-87d4-4fea-b425-ba2f1a0cd375"}}];
+                  root.Bokeh.embed.embed_items(docs_json, render_items);
+                
+                  }
+                  if (root.Bokeh !== undefined) {
+                    embed_document(root);
+                  } else {
+                    let attempts = 0;
+                    const timer = setInterval(function(root) {
+                      if (root.Bokeh !== undefined) {
+                        clearInterval(timer);
+                        embed_document(root);
+                      } else {
+                        attempts++;
+                        if (attempts > 100) {
+                          clearInterval(timer);
+                          console.log("Bokeh: ERROR: Unable to run BokehJS code because BokehJS library is missing");
+                        }
+                      }
+                    }, 10, root)
+                  }
+                })(window);
+              });
+            };
+            if (document.readyState != "loading") fn();
+            else document.addEventListener("DOMContentLoaded", fn);
+          })();
+        </script>
+    
+  </body>
+  
+</html>
